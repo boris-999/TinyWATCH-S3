@@ -117,7 +117,7 @@ void process_touch()
 			start_x = touchpad.x;
 			start_y = touchpad.y;
 			is_touched = true;
-			touch_time = millis();
+			touch_time = last_touch = millis();
 
 			BuzzerUI({ {2000, 10} });
 			
