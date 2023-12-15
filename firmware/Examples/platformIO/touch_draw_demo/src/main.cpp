@@ -109,7 +109,7 @@ void init_screen()
 void process_touch()
 {
 	if (touchpad.available())
-    {
+	{
 		if (!is_touched && touchpad.finger_num == 1)
 		{
 			color = RGB(random(255), random(255), random(255));
@@ -160,19 +160,19 @@ void setup()
 {
 	pinMode(0, INPUT_PULLUP);
 	pinMode(PWR_SHUTDOWN, OUTPUT);
-    digitalWrite(PWR_SHUTDOWN, LOW);
+	digitalWrite(PWR_SHUTDOWN, LOW);
 
-    analogWriteResolution(8);
+	analogWriteResolution(8);
 
 	// Initialise the Buzzer
-    init_buzzer(BUZZER, 4);
-    esp_register_shutdown_handler([]()
-    {
-        deinit_buzzer(BUZZER);
-    });
+	init_buzzer(BUZZER, 4);
+	esp_register_shutdown_handler([]()
+	{
+		deinit_buzzer(BUZZER);
+	});
 
 	if (vbus_present())
-    {
+	{
 		Serial.begin(115200);
 		delay(1000);
 		Serial.println("hello");
@@ -182,10 +182,10 @@ void setup()
 
 	Wire.begin(8, 9);
 
-    // Start the peripherals
+	// Start the peripherals
 	rtc.init();
-    battery.init();
-    imu.init();
+	battery.init();
+	imu.init();
 }
 
 void loop()

@@ -8,12 +8,12 @@ void IMU::init()
 	imu_ready = true;
 	mag_ready = true;
 
-    if (imu.beginI2C(i2cAddress) != BMI2_OK)
-    {
-        // Not connected, inform user
-        Serial.println("Error: BMI270 not connected, check wiring and I2C address!");
+	if (imu.beginI2C(i2cAddress) != BMI2_OK)
+	{
+		// Not connected, inform user
+		Serial.println("Error: BMI270 not connected, check wiring and I2C address!");
 		imu_ready = false;
-    }
+	}
 	else
 	{
 		Serial.println(F("Found BMI270"));
@@ -23,8 +23,8 @@ void IMU::init()
 
 		// Reorient the IMU because it's worn upside down from BOSCH's intended orientation
 		// The sensor assumes the axes have a particular orientation with respect to
-    	// the watch face, where +Y is at 12 o'clock, and +X is at 3 o'clock. You
-    	// can remap the axes if needed by uncommenting the code below
+		// the watch face, where +Y is at 12 o'clock, and +X is at 3 o'clock. You
+		// can remap the axes if needed by uncommenting the code below
 		bmi2_remap axes;
 		axes.x = BMI2_AXIS_NEG_X;
 		axes.y = BMI2_AXIS_NEG_Y;
@@ -32,17 +32,17 @@ void IMU::init()
 		imu.remapAxes(axes);
 	}
 
-    mag = Adafruit_MMC5603(12345);
-    if (!mag.begin(MMC56X3_DEFAULT_ADDRESS))
-    {
-        // I2C mode
-        /* There was a problem detecting the MMC5603 ... check your connections */
-        Serial.println("Ooops, no MMC5603 detected ... Check your wiring!");
+	mag = Adafruit_MMC5603(12345);
+	if (!mag.begin(MMC56X3_DEFAULT_ADDRESS))
+	{
+		// I2C mode
+		/* There was a problem detecting the MMC5603 ... check your connections */
+		Serial.println("Ooops, no MMC5603 detected ... Check your wiring!");
 		mag_ready = false;
-    }
+	}
 	else
 	{
-    	Serial.println(F("Found MMC56X3"));
+		Serial.println(F("Found MMC56X3"));
 		mag.magnetSetReset();
 		// mag.setContinuousMode(true);
 
@@ -70,7 +70,7 @@ void IMU::set_hibernate(bool state)
 	else
 	{
 		imu.enableFeature(BMI2_ACCEL);
-    	imu.enableFeature(BMI2_GYRO);
+		imu.enableFeature(BMI2_GYRO);
 	}
 }
 

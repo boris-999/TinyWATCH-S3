@@ -8,8 +8,8 @@
 
 class IMU
 {
-    public:
-        void init();
+	public:
+		void init();
 		void update();
 		float get_accel_x();
 		float get_accel_y();
@@ -28,12 +28,12 @@ class IMU
 		bool imu_ready = true;
 		bool mag_ready = true;
 
-    private:
-        BMI270 imu;
-        Adafruit_MMC5603 mag;
-        uint8_t i2cAddress = BMI2_I2C_PRIM_ADDR;
+	private:
+		BMI270 imu;
+		Adafruit_MMC5603 mag;
+		uint8_t i2cAddress = BMI2_I2C_PRIM_ADDR;
 
-        unsigned long next_imu_read = 0;
+		unsigned long next_imu_read = 0;
 		float prev_yaw_read = 0;
 		float curr_yaw_read = 0;
 		float hacky_yaw = 0;

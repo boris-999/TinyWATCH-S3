@@ -4,18 +4,18 @@
 
 typedef struct
 {
-    uint8_t secs = 0;
-    uint8_t mins = 0;
-    uint8_t hours = 0;
+	uint8_t secs = 0;
+	uint8_t mins = 0;
+	uint8_t hours = 0;
 
 } TT_Time;
 
 class RTC
 {
-    public:
-        bool init();
-        void setup_interrupt();
-        bool check_interrupt();
+	public:
+		bool init();
+		void setup_interrupt();
+		bool check_interrupt();
 		bool set_time_from_NTP();
 		void set_hourly_alarm(uint minuets);
 
@@ -34,15 +34,15 @@ class RTC
 		uint16_t get_month();
 		uint16_t get_year();
 
-        TT_Time time_components;
+		TT_Time time_components;
 		RV3028C7 rtc;
 
-    private:
-        bool enabled = false;
+	private:
+		bool enabled = false;
 
-        uint8_t interruptPin = 33;
-        unsigned long next_rtc_read = 0;
-        uint16_t cached_day = 0;
+		uint8_t interruptPin = 33;
+		unsigned long next_rtc_read = 0;
+		uint16_t cached_day = 0;
 		uint cached_month = 0;
 		uint16_t cached_year = 0;
 };

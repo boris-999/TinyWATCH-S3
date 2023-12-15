@@ -4,18 +4,18 @@ bool vbus_present();
 
 bool Battery::init()
 {
-    if (!maxlipo.begin())
-    {
-        Serial.println(F("Couldn't find MAX17048?\nMake sure a battery is plugged in!"));
-        return false;
-    }
-    Serial.print(F("Found MAX17048"));
-    Serial.print(F(" with Chip ID: 0x"));
-    Serial.println(maxlipo.getChipID(), HEX);
+	if (!maxlipo.begin())
+	{
+		Serial.println(F("Couldn't find MAX17048?\nMake sure a battery is plugged in!"));
+		return false;
+	}
+	Serial.print(F("Found MAX17048"));
+	Serial.print(F(" with Chip ID: 0x"));
+	Serial.println(maxlipo.getChipID(), HEX);
 
-    next_battery_read = millis();
+	next_battery_read = millis();
 
-    return true;
+	return true;
 }
 
 void Battery::set_hibernate(bool state)
@@ -28,35 +28,35 @@ void Battery::set_hibernate(bool state)
 
 float Battery::get_voltage(bool forced)
 {
-    if (forced)
-    {
-        cached_voltage = maxlipo.cellVoltage();
+	if (forced)
+	{
+		cached_voltage = maxlipo.cellVoltage();
 		cached_percent = maxlipo.cellPercent();
-        next_battery_read = millis();
-    }
-    else if (millis() - next_battery_read > 500) {   // we only read the IC every 500ms
-        next_battery_read = millis();
-        cached_voltage = maxlipo.cellVoltage();
+		next_battery_read = millis();
+	}
+	else if (millis() - next_battery_read > 500) {   // we only read the IC every 500ms
+		next_battery_read = millis();
+		cached_voltage = maxlipo.cellVoltage();
 		cached_percent = maxlipo.cellPercent();
-    }
-    return cached_voltage;
+	}
+	return cached_voltage;
 }
 
 float Battery::get_percent(bool forced)
 {
-    if (forced)
-    {
-        cached_percent = maxlipo.cellPercent();
+	if (forced)
+	{
+		cached_percent = maxlipo.cellPercent();
 		cached_voltage = maxlipo.cellVoltage();
-        next_battery_read = millis();
-    }
-    else if (millis() - next_battery_read > 500) {   // we only read the IC every 500ms
-        next_battery_read = millis();
-        cached_percent = maxlipo.cellPercent();
+		next_battery_read = millis();
+	}
+	else if (millis() - next_battery_read > 500) {   // we only read the IC every 500ms
+		next_battery_read = millis();
+		cached_percent = maxlipo.cellPercent();
 		cached_voltage = maxlipo.cellVoltage();
-    }
+	}
 
-    return cached_percent;
+	return cached_percent;
 }
 
 uint8_t Battery::get_alert_status()

@@ -8,29 +8,29 @@ String months[12] = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SE
 
 bool RTC::init()
 {
-    if (rtc.begin() == false)
-    {
-        Serial.println("Failed to detect RV-3028-C7!");
-        return false;
-    }
+	if (rtc.begin() == false)
+	{
+		Serial.println("Failed to detect RV-3028-C7!");
+		return false;
+	}
 
 	enabled = true;
 
-    interruptTriggered = true;
+	interruptTriggered = true;
 
-    Serial.println("RV-3028-C7 connected!");
+	Serial.println("RV-3028-C7 connected!");
 
-    next_rtc_read = millis();
+	next_rtc_read = millis();
 
-    return true;
+	return true;
 }
 
 void RTC::set_hourly_alarm(uint minuets)
 {
-    setup_interrupt();
+	setup_interrupt();
 
-    rtc.setHourlyAlarm(/*minute=*/ minuets);
-    rtc.enableInterrupt(INTERRUPT_ALARM);
+	rtc.setHourlyAlarm(/*minute=*/ minuets);
+	rtc.enableInterrupt(INTERRUPT_ALARM);
 }
 
 String RTC::get_hours_string(bool padded, bool is24hour)
@@ -101,13 +101,13 @@ uint16_t RTC::get_year()
 
 void rtcInterrupt()
 {
-    interruptTriggered = true;
+	interruptTriggered = true;
 }
 
 void RTC::setup_interrupt()
 {
-    interruptTriggered = false;
-    attachInterrupt(digitalPinToInterrupt(interruptPin), rtcInterrupt, FALLING);
+	interruptTriggered = false;
+	attachInterrupt(digitalPinToInterrupt(interruptPin), rtcInterrupt, FALLING);
 
 }
 
@@ -143,18 +143,18 @@ String RTC::get_month_date()
 
 bool RTC::check_interrupt()
 {
-    if (!interruptTriggered)
-    {
-        return false;
-    }
+	if (!interruptTriggered)
+	{
+		return false;
+	}
 
-    interruptTriggered = false;
-    if (rtc.isInterruptDetected(INTERRUPT_ALARM))
-    {
-        Serial.print("Alarm: ");
-        // Serial.println(getTime());
-        rtc.clearInterrupt(INTERRUPT_ALARM);
-    }
+	interruptTriggered = false;
+	if (rtc.isInterruptDetected(INTERRUPT_ALARM))
+	{
+		Serial.print("Alarm: ");
+		// Serial.println(getTime());
+		rtc.clearInterrupt(INTERRUPT_ALARM);
+	}
 
-    return true;
+	return true;
 }
